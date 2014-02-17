@@ -11,4 +11,3 @@ ln -s ~/dotfiles/home/Cygwin-64/vim     .vim
 ln -s ~/dotfiles/home/Cygwin-64/vimrc   .vimrc
 ln -s ~/dotfiles/home/Cygwin-64/bashrc  .bashrc
 ln -s ~/dotfiles/home/Cygwin-64/profile .profile
-
