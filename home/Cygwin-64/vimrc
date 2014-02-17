@@ -39,6 +39,9 @@ set noswapfile                  " no swap files
 
 set wildignore=*.sw?,*.o,*.obj,*.tsk,*.pyc,*.*~
 
+nnoremap <Leader>l :set list!<CR>
+set listchars=tab:▸\ ,eol:¬
+
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <F7> :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>   " Change to Titlecase
 
@@ -171,9 +174,9 @@ if has ("autocmd")
 endif
 
 " Bind <Leader>z to NerdTree toggle
-nnoremap <leader>z :NERDTreeToggle<CR>
-" Map <leader>v to open vimrc in a new tab
-nnoremap <leader>v :tabedit $MYVIMRC<CR>
+nnoremap <Leader>z :NERDTreeToggle<CR>
+" Map <Leader>v to open vimrc in a new tab
+nnoremap <Leader>v :tabedit $MYVIMRC<CR>
 
 " Fugitive commands
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
