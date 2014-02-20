@@ -58,3 +58,30 @@
     path = home/Cygwin-64/vim/bundle/unimpaired
     url = git://github.com/tpope/vim-unimpaired.git
     ignore = dirty
+[submodule "home/ubuntu/vim/bundle/fugitive"]
+	path = home/ubuntu/vim/bundle/fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule "home/ubuntu/vim/bundle/surround"]
+	path = home/ubuntu/vim/bundle/surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule "home/ubuntu/vim/bundle/unimpaired"]
+	path = home/ubuntu/vim/bundle/unimpaired
+	url = git@github.com:tpope/vim-unimpaired.git
+[submodule "home/ubuntu/vim/bundle/solarized"]
+	path = home/ubuntu/vim/bundle/solarized
+	url = git@github.com:altercation/vim-colors-solarized.git
+[submodule "home/ubuntu/vim/bundle/vundle"]
+	path = home/ubuntu/vim/bundle/vundle
+	url = git@github.com:gmarik/Vundle.vim.git
+[submodule "home/ubuntu/vim/bundle/ultisnips"]
+	path = home/ubuntu/vim/bundle/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule "home/ubuntu/vim/bundle/nerdtree"]
+	path = home/ubuntu/vim/bundle/nerdtree
+	url = git@github.com:scrooloose/nerdtree.git
+[submodule "home/ubuntu/vim/bundle/syntastic"]
+	path = home/ubuntu/vim/bundle/syntastic
+	url = git@github.com:scrooloose/syntastic.git
+[submodule "home/ubuntu/vim/bundle/YouCompleteMe"]
+	path = home/ubuntu/vim/bundle/YouCompleteMe
+	url = git@github.com:Valloric/YouCompleteMe.git

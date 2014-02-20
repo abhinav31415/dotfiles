@@ -1,0 +1,192 @@
+" This configuration file was tested with
+"       /usr/local/bin/vim (7.0) and
+"       /usr/local/bin/gvim (7.0)
+"this line prevents copydotfiles from recopying: dot-vimrc_included
+set nocompatible               " be iMproved
+" for Pathogen
+execute pathogen#infect()
+execute pathogen#helptags()
+
+filetype plugin indent on     " required!
+syntax on
+
+syntax enable
+set background=dark
+colorscheme solarized
+
+" Force syntastic to use pyflakes for python, since it's supposed to be faster
+let g:syntastic_python_checkers=['pyflakes']
+
+" Regular stuff
+" set term=dtterm 
+set et                          " expand tab
+set ts=4                        " tab stop
+set sw=4                        " sift width
+set sts=4                       " soft tab stop
+set bs=indent,eol,start         " backspace behaviour
+set ai                          " auto indent
+set si                          " smart indent
+set nocin                       " no C-indent
+set ru                          " runtime : allow runtime commands
+set nu                          " line numbers
+
+set incsearch                   " show search matches as you type
+set hlsearch                    " highlight search terms
+nnoremap <silent> ,/ :nohlsearch<CR> " toggle hlsearch
+
+set nobackup                    " no backup files
+set noswapfile                  " no swap files
+
+set wildignore=*.sw?,*.o,*.obj,*.tsk,*.pyc,*.*~
+
+nnoremap <Leader>l :set list!<CR>
+set listchars=tab:▸\ ,eol:¬
+
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+nnoremap <F7> :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>   " Change to Titlecase
+
+" Ctrl+s -> save
+noremap <silent> <C-s> :update<CR>
+inoremap <silent> <C-s> <C-c>:update<CR>
+vnoremap <silent> <C-s> <C-o>:update<CR>
+
+noremap <silent> <C-q> :update<CR>:quit<CR>
+inoremap <silent> <C-q> <C-c>:update<CR>:quit<CR>
+vnoremap <silent> <C-q> <C-o>:update<CR>:quit<CR>
+
+noremap <Leader>bc :s/^/\/\//
+noremap <Leader>bu :s/^\/\///
+noremap <Leader>sc :s/^/#/
+noremap <Leader>su :s/^#//
+
+" Indentation in normal and visual mode
+nnoremap <Tab>    >>
+nnoremap <S-Tab>  <<
+vnoremap <Tab>    >gv
+vnoremap <S-Tab>  <gv
+
+" buffer toggle 
+" gt -> forward
+" gT -> back
+" gB -> previous
+nnoremap gB <C-^>
+
+" disable the arrow keys for navigation
+" h,j,k,l - w,b - A,I
+nnoremap <Up>    <NOP>
+nnoremap <Down>  <NOP>
+nnoremap <Left>  <NOP>
+nnoremap <Right> <NOP>
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
+inoremap <Left>  <NOP>
+inoremap <Right> <NOP>
+
+" Bubble single lines
+nnoremap <C-Up> [e
+nnoremap <C-Down> ]e
+" Bubble multiple lines
+vnoremap <C-Up> [egv
+vnoremap <C-Down> ]egv
+
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
+
+nnoremap <C-Up> :silent! let &guifont = substitute(
+ \ &guifont,
+ \ ':h\zs\d\+',
+ \ '\=eval(submatch(0)+1)',
+ \ '')<CR>
+nnoremap <C-Down> :silent! let &guifont = substitute(
+ \ &guifont,
+ \ ':h\zs\d\+',
+ \ '\=eval(submatch(0)-1)',
+ \ '')<CR>
+
+" Don't need this with syntastic
+" hi Function guifg=red
+" hi Identifier guifg=red
+
+" VUNDLE
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe' 
+" doesn't work
+"
+
+" repeating this here since it was turned off for Vundle
+filetype plugin indent on
+
+" Add highlighting for function definition in C++
+" don't think I need this anymore
+function! EnhanceCppSyntax()
+    syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
+    hi def link cppFuncDef Special
+endfunction
+
+" Function to strip trailing spaces
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+"Don't need this mapping for now as we have the Preserve mapping
+"nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
+
+" Preserve saves cursor position
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+    endfunction
+nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+
+" autocmd stuff
+if has ("autocmd")
+    filetype on " in case I delete that before this
+
+    " Make files are finnicky about tabs and spaces
+    autocmd FileType make noexpandtab
+
+    " Treat .config files as XML (autocomplete)
+    autocmd BufNewFile,BufRead *.config setfiletype xml
+
+    " Fugitive statusline changes
+    autocmd BufReadPost fugitive://* set bufhidden=delete
+
+    " allow extra highlighting for CPP style
+    " don't know if I still need this with syntastic
+    " autocmd Syntax cpp call EnhanceCppSyntax()
+    ""autocmd bufwritepost .vimrc source $MYVIMRC
+
+    " Start NerdTree automatically when vim starts
+    " autocmd vimenter * NERDTree
+    autocmd vimenter * if !argc() | :e $MYVIMRC | set syntax=on | endif
+    autocmd vimenter * if !argc() | NERDTree | endif
+endif
+
+" Bind <Leader>z to NerdTree toggle
+nnoremap <Leader>z :NERDTreeToggle<CR>
+" Map <Leader>v to open vimrc in a new tab
+nnoremap <Leader>v :tabedit $MYVIMRC<CR>
+
+" Fugitive commands
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
