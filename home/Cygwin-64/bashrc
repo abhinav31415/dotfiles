@@ -199,3 +199,4 @@
 
 # start X-win
 /usr/bin/startxwin
+alias git-root='cd "$(git rev-parse --show-toplevel)"'

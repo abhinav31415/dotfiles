@@ -54,3 +54,7 @@
     path = home/Cygwin-32/vim/bundle/YouCompleteMe
     url = https://github.com/Valloric/YouCompleteMe.git
     ignore = dirty
+[submodule "home/Cygwin-64/vim/bundle/unimpaired"]
+    path = home/Cygwin-64/vim/bundle/unimpaired
+    url = git://github.com/tpope/vim-unimpaired.git
+    ignore = dirty

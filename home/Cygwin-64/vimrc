@@ -82,6 +82,16 @@ inoremap <Down>  <NOP>
 inoremap <Left>  <NOP>
 inoremap <Right> <NOP>
 
+" Bubble single lines
+nnoremap <C-Up> [e
+nnoremap <C-Down> ]e
+" Bubble multiple lines
+vnoremap <C-Up> [egv
+vnoremap <C-Down> ]egv
+
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
+
 nnoremap <C-Up> :silent! let &guifont = substitute(
  \ &guifont,
  \ ':h\zs\d\+',
