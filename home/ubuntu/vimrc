@@ -191,6 +191,7 @@ endif
 nnoremap <Leader>z :NERDTreeToggle<CR>
 " Map <Leader>v to open vimrc in a new tab
 nnoremap <Leader>v :tabedit $MYVIMRC<CR>
-
+" Map F5 to toggle Gundo
+noremap <F5> :GundoToggle<CR>
 " Fugitive commands
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
