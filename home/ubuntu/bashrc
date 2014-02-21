@@ -109,3 +109,5 @@ fi
 export PS1="\n\u@\h \w\n\$ "
 alias git-root='cd "$(git rev-parse --show-toplevel)"'
 alias gvim='UBUNTU_MENUPROXY= gvim'
+alias git-dir='cd ~/github/dotfiles'
+alias git-vim='cd ~/github/dotfiles/home/ubuntu/vim'

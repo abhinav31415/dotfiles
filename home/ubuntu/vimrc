@@ -4,6 +4,10 @@
 "this line prevents copydotfiles from recopying: dot-vimrc_included
 set nocompatible               " be iMproved
 " for Pathogen
+" Exclude ultisnips for now, it seems to be messing with YCM
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'ultisnips')
+
 execute pathogen#infect()
 execute pathogen#helptags()
 
