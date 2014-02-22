@@ -11,12 +11,26 @@ call add(g:pathogen_disabled, 'ultisnips')
 execute pathogen#infect()
 execute pathogen#helptags()
 
+" VUNDLE
+filetype off                   " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe' 
+
 filetype plugin indent on     " required!
 syntax on
 
 syntax enable
 set background=dark
 colorscheme solarized
+
+" Force close the YCM suggestion box after completion
+let g:ycm_autoclose_preview_window_after_completion = 1
+" Seed with keywords from syntax for that filetype
+let g:ycm_seed_identifiers_with_syntax = 1
 
 " Force syntastic to use pyflakes for python, since it's supposed to be faster
 let g:syntastic_python_checkers=['pyflakes']
@@ -96,6 +110,9 @@ vnoremap <C-Down> ]egv
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
+noremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 nnoremap <C-Up> :silent! let &guifont = substitute(
  \ &guifont,
  \ ':h\zs\d\+',
@@ -110,22 +127,6 @@ nnoremap <C-Down> :silent! let &guifont = substitute(
 " Don't need this with syntastic
 " hi Function guifg=red
 " hi Identifier guifg=red
-
-" VUNDLE
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe' 
-" doesn't work
-"
-
-" repeating this here since it was turned off for Vundle
-filetype plugin indent on
 
 " Add highlighting for function definition in C++
 " don't think I need this anymore
