@@ -59,42 +59,50 @@
     url = git://github.com/tpope/vim-unimpaired.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/fugitive"]
-	path = home/ubuntu/vim/bundle/fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+    path = home/ubuntu/vim/bundle/fugitive
+    url = git@github.com:tpope/vim-fugitive.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/surround"]
-	path = home/ubuntu/vim/bundle/surround
-	url = git@github.com:tpope/vim-surround.git
+    path = home/ubuntu/vim/bundle/surround
+    url = git@github.com:tpope/vim-surround.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/unimpaired"]
-	path = home/ubuntu/vim/bundle/unimpaired
-	url = git@github.com:tpope/vim-unimpaired.git
+    path = home/ubuntu/vim/bundle/unimpaired
+    url = git@github.com:tpope/vim-unimpaired.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/solarized"]
-	path = home/ubuntu/vim/bundle/solarized
-	url = git@github.com:altercation/vim-colors-solarized.git
+    path = home/ubuntu/vim/bundle/solarized
+    url = git@github.com:altercation/vim-colors-solarized.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/vundle"]
-	path = home/ubuntu/vim/bundle/vundle
-	url = git@github.com:gmarik/Vundle.vim.git
+    path = home/ubuntu/vim/bundle/vundle
+    url = git@github.com:gmarik/Vundle.vim.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/ultisnips"]
-	path = home/ubuntu/vim/bundle/ultisnips
-	url = git@github.com:SirVer/ultisnips.git
+    path = home/ubuntu/vim/bundle/ultisnips
+    url = git@github.com:SirVer/ultisnips.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/nerdtree"]
-	path = home/ubuntu/vim/bundle/nerdtree
-	url = git@github.com:scrooloose/nerdtree.git
+    path = home/ubuntu/vim/bundle/nerdtree
+    url = git@github.com:scrooloose/nerdtree.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/syntastic"]
-	path = home/ubuntu/vim/bundle/syntastic
-	url = git@github.com:scrooloose/syntastic.git
+    path = home/ubuntu/vim/bundle/syntastic
+    url = git@github.com:scrooloose/syntastic.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/YouCompleteMe"]
-	path = home/ubuntu/vim/bundle/YouCompleteMe
-	url = git@github.com:Valloric/YouCompleteMe.git
+    path = home/ubuntu/vim/bundle/YouCompleteMe
+    url = git@github.com:Valloric/YouCompleteMe.git
     ignore = dirty
 [submodule "home/ubuntu/vim/bundle/gundo"]
-	path = home/ubuntu/vim/bundle/gundo
-	url = git@github.com:sjl/gundo.vim.git
+    path = home/ubuntu/vim/bundle/gundo
+    url = git@github.com:sjl/gundo.vim.git
+    ignore = dirty
+[submodule "home/ubuntu/vim/bundle/repeat"]
+    path = home/ubuntu/vim/bundle/repeat
+    url = git@github.com:tpope/vim-repeat.git
+    ignore = dirty
+[submodule "home/ubuntu/vim/bundle/abolish"]
+    path = home/ubuntu/vim/bundle/abolish
+    url = git@github.com:tpope/vim-abolish.git
     ignore = dirty
