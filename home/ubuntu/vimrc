@@ -90,15 +90,10 @@ endfunction
 nnoremap <silent> ,/ :nohlsearch<CR> " toggle hlsearch
 nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 
-" Map <Ctrl>f to find
-nnoremap <C-f> *
-nnoremap <C-f> <C-c>*
-vnoremap <C-f> <C-o>*
 " Map <Ctrl><Shift>f to find all occurences of the word under the cursor and
 " popuplate it in the quickfix area and open it up
-nnoremap <C-S-f> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
-inoremap <C-S-f> <C-c> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
-vnoremap <C-S-f> <C-o> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
+nnoremap <Leader>f :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
+vnoremap <Leader>f <C-o> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
 
 " <Ctrl>s -> save
 noremap <silent> <C-s> :update<CR>
