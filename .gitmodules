@@ -106,3 +106,7 @@
     path = home/ubuntu/vim/bundle/abolish
     url = git@github.com:tpope/vim-abolish.git
     ignore = dirty
+[submodule "home/ubuntu/fzf"]
+    path = home/ubuntu/fzf
+    url = https://github.com/junegunn/fzf.git
+    ignore = dirty
