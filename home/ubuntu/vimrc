@@ -50,31 +50,90 @@ set nu                          " line numbers
 
 set incsearch                   " show search matches as you type
 set hlsearch                    " highlight search terms
-nnoremap <silent> ,/ :nohlsearch<CR> " toggle hlsearch
 
 set nobackup                    " no backup files
 set noswapfile                  " no swap files
 
+" Ignore the following file types in wildcard expansions
 set wildignore=*.sw?,*.o,*.obj,*.tsk,*.pyc,*.*~
 
-nnoremap <Leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
-nnoremap <F7> :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>   " Change to Titlecase
+" Function defintions
+" Function to strip trailing spaces
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
 
-" Ctrl+s -> save
+" Preserve saves cursor position
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+" Mappings start here
+nnoremap <silent> ,/ :nohlsearch<CR> " toggle hlsearch
+nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+
+" Map <Ctrl>f to find
+nnoremap <C-f> *
+nnoremap <C-f> <C-c>*
+vnoremap <C-f> <C-o>*
+" Map <Ctrl><Shift>f to find all occurences of the word under the cursor and
+" popuplate it in the quickfix area and open it up
+nnoremap <C-S-f> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
+inoremap <C-S-f> <C-c> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
+vnoremap <C-S-f> <C-o> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
+
+" <Ctrl>s -> save
 noremap <silent> <C-s> :update<CR>
 inoremap <silent> <C-s> <C-c>:update<CR>
 vnoremap <silent> <C-s> <C-o>:update<CR>
 
+" <Ctrl>q -> save and quit
 noremap <silent> <C-q> :update<CR>:quit<CR>
 inoremap <silent> <C-q> <C-c>:update<CR>:quit<CR>
 vnoremap <silent> <C-q> <C-o>:update<CR>:quit<CR>
 
+" Function key mappings
+" Map <F7> to change to Titlecase
+nnoremap <F7> :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>   " Change to Titlecase
+" Map F5 to toggle Gundo
+noremap <F5> :GundoToggle<CR>
+"Don't need this mapping for now as we have the Preserve mapping
+"nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
+
+" Leader (\) mappings
+" Map \l to show listchars
+nnoremap <Leader>l :set list!<CR>
+" Map \s to replace current word with
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+" Bind <Leader>z to NerdTree toggle
+nnoremap <Leader>z :NERDTreeToggle<CR>
+" Map <Leader>v to open vimrc in a new tab
+nnoremap <Leader>v :tabedit $MYVIMRC<CR>
+" Map \bc to comment multiple lines in C-style
 noremap <Leader>bc :s/^/\/\//
+" Map \bu to uncomment multiple lines in C-style
 noremap <Leader>bu :s/^\/\///
+" Map \sc to comment multiple lines in shell-style
 noremap <Leader>sc :s/^/#/
+" Map \su to uncomment multiple lines in shell-style
 noremap <Leader>su :s/^#//
 
 " Indentation in normal and visual mode
@@ -110,59 +169,12 @@ vnoremap <C-Down> ]egv
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
+" Mappings to open defintion in a new tab/split
+" C-] - go to definition
+" C-T - Jump back from the definition.
+" C-W C-] - Open the definition in a horizontal split 
 noremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-nnoremap <C-Up> :silent! let &guifont = substitute(
- \ &guifont,
- \ ':h\zs\d\+',
- \ '\=eval(submatch(0)+1)',
- \ '')<CR>
-nnoremap <C-Down> :silent! let &guifont = substitute(
- \ &guifont,
- \ ':h\zs\d\+',
- \ '\=eval(submatch(0)-1)',
- \ '')<CR>
-
-" Don't need this with syntastic
-" hi Function guifg=red
-" hi Identifier guifg=red
-
-" Add highlighting for function definition in C++
-" don't think I need this anymore
-function! EnhanceCppSyntax()
-    syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
-    hi def link cppFuncDef Special
-endfunction
-
-" Function to strip trailing spaces
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-"Don't need this mapping for now as we have the Preserve mapping
-"nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
-
-" Preserve saves cursor position
-function! Preserve(command)
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    execute a:command
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-    endfunction
-nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 
 " autocmd stuff
 if has ("autocmd")
@@ -188,11 +200,4 @@ if has ("autocmd")
     autocmd vimenter * if !argc() | NERDTree | endif
 endif
 
-" Bind <Leader>z to NerdTree toggle
-nnoremap <Leader>z :NERDTreeToggle<CR>
-" Map <Leader>v to open vimrc in a new tab
-nnoremap <Leader>v :tabedit $MYVIMRC<CR>
-" Map F5 to toggle Gundo
-noremap <F5> :GundoToggle<CR>
-" Fugitive commands
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
