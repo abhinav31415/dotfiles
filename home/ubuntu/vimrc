@@ -1,8 +1,8 @@
 " This configuration file was tested with
-"       /usr/local/bin/vim (7.0) and
-"       /usr/local/bin/gvim (7.0)
+"		/usr/local/bin/vim (7.0) and
+"		/usr/local/bin/gvim (7.0)
 "this line prevents copydotfiles from recopying: dot-vimrc_included
-set nocompatible               " be iMproved
+set nocompatible				 " be iMproved
 " for Pathogen
 " Exclude ultisnips for now, it seems to be messing with YCM
 let g:pathogen_disabled = []
@@ -12,7 +12,7 @@ execute pathogen#infect()
 execute pathogen#helptags()
 
 " VUNDLE
-filetype off                   " required!
+filetype off					 " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 " let Vundle manage Vundle
@@ -20,7 +20,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe' 
 
-filetype plugin indent on     " required!
+filetype plugin indent on		" required!
 syntax on
 
 syntax enable
@@ -37,22 +37,22 @@ let g:syntastic_python_checkers=['pyflakes']
 
 " Regular stuff
 " set term=dtterm 
-set et                          " expand tab
-set ts=4                        " tab stop
-set sw=4                        " sift width
-set sts=4                       " soft tab stop
-set bs=indent,eol,start         " backspace behaviour
-set ai                          " auto indent
-set si                          " smart indent
-set nocin                       " no C-indent
-set ru                          " runtime : allow runtime commands
-set nu                          " line numbers
+set noet						" expand tab
+set ts=4						"tab stop
+set sw=4						"shift width
+set sts=4						"soft tab stop
+set bs=indent,eol,start			"backspacebehaviour
+set ai							"auto indent
+set si							"smart indent
+set nocin						"noC-indent
+set ru							"runtime : allow runtime commands
+set nu							"line numbers
 
-set incsearch                   " show search matches as you type
-set hlsearch                    " highlight search terms
+set incsearch					"showsearch matches as you type
+set hlsearch					"highlight search terms
 
-set nobackup                    " no backup files
-set noswapfile                  " no swap files
+set nobackup					"nobackup files
+set noswapfile					"noswapfiles
 
 " Ignore the following file types in wildcard expansions
 set wildignore=*.sw?,*.o,*.obj,*.tsk,*.pyc,*.*~
@@ -62,38 +62,61 @@ set listchars=tab:▸\ ,eol:¬
 " Function defintions
 " Function to strip trailing spaces
 function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	%s/\s\+$//e
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
 endfunction
 
 " Preserve saves cursor position
 function! Preserve(command)
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    execute a:command
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	execute a:command
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
+endfunction
+
+" Set tabstop, softtabstop and shiftwidth to the same value
+command! -nargs=* Stab call Stab()
+function! Stab()
+	let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+	if l:tabstop > 0
+		let &l:sts = l:tabstop
+		let &l:ts = l:tabstop
+		let &l:sw = l:tabstop
+	endif
+	call SummarizeTabs()
+endfunction
+	
+function! SummarizeTabs()
+	try
+		echohl ModeMsg
+		echon 'tabstop='.&l:ts
+		echon ' shiftwidth='.&l:sw
+		echon ' softtabstop='.&l:sts
+		if &l:et
+			echon ' expandtab'
+		else
+			echon ' noexpandtab'
+		endif
+	finally
+		echohl None
+	endtry
 endfunction
 
 " Mappings start here
 nnoremap <silent> ,/ :nohlsearch<CR> " toggle hlsearch
 nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
-
-" Map <Ctrl><Shift>f to find all occurences of the word under the cursor and
-" popuplate it in the quickfix area and open it up
-nnoremap <Leader>f :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
-vnoremap <Leader>f <C-o> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
 
 " <Ctrl>s -> save
 noremap <silent> <C-s> :update<CR>
@@ -107,13 +130,17 @@ vnoremap <silent> <C-q> <C-o>:update<CR>:quit<CR>
 
 " Function key mappings
 " Map <F7> to change to Titlecase
-nnoremap <F7> :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>   " Change to Titlecase
+nnoremap <F7> :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>	" Change to Titlecase
 " Map F5 to toggle Gundo
 noremap <F5> :GundoToggle<CR>
 "Don't need this mapping for now as we have the Preserve mapping
 "nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
 
 " Leader (\) mappings
+" Map <Leader>f to find all occurences of the word under the cursor and
+" popuplate it in the quickfix area and open it up
+nnoremap <Leader>f :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
+vnoremap <Leader>f <C-o> :vim/<C-r><C-w>/gj *.*<CR>:cw<CR>
 " Map \l to show listchars
 nnoremap <Leader>l :set list!<CR>
 " Map \s to replace current word with
@@ -132,10 +159,10 @@ noremap <Leader>sc :s/^/#/
 noremap <Leader>su :s/^#//
 
 " Indentation in normal and visual mode
-nnoremap <Tab>    >>
-nnoremap <S-Tab>  <<
-vnoremap <Tab>    >gv
-vnoremap <S-Tab>  <gv
+nnoremap <Tab>	>>
+nnoremap <S-Tab>	<<
+vnoremap <Tab>	>gv
+vnoremap <S-Tab>	<gv
 
 " buffer toggle 
 " gt -> forward
@@ -145,11 +172,11 @@ nnoremap gB <C-^>
 
 " disable the arrow keys for navigation
 " h,j,k,l - w,b - A,I
-nnoremap <Up>    <NOP>
+nnoremap <Up>	 <NOP>
 nnoremap <Down>  <NOP>
 nnoremap <Left>  <NOP>
 nnoremap <Right> <NOP>
-inoremap <Up>    <NOP>
+inoremap <Up>	 <NOP>
 inoremap <Down>  <NOP>
 inoremap <Left>  <NOP>
 inoremap <Right> <NOP>
@@ -173,26 +200,26 @@ noremap <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " autocmd stuff
 if has ("autocmd")
-    filetype on " in case I delete that before this
+	filetype on " in case I delete that before this
 
-    " Make files are finnicky about tabs and spaces
-    autocmd FileType make noexpandtab
+	" Make files are finnicky about tabs and spaces
+	autocmd FileType make noexpandtab
 
-    " Treat .config files as XML (autocomplete)
-    autocmd BufNewFile,BufRead *.config setfiletype xml
+	" Treat .config files as XML (autocomplete)
+	autocmd BufNewFile,BufRead *.config setfiletype xml
 
-    " Fugitive statusline changes
-    autocmd BufReadPost fugitive://* set bufhidden=delete
+	" Fugitive statusline changes
+	autocmd BufReadPost fugitive://* set bufhidden=delete
 
-    " allow extra highlighting for CPP style
-    " don't know if I still need this with syntastic
-    " autocmd Syntax cpp call EnhanceCppSyntax()
-    ""autocmd bufwritepost .vimrc source $MYVIMRC
+	" allow extra highlighting for CPP style
+	" don't know if I still need this with syntastic
+	" autocmd Syntax cpp call EnhanceCppSyntax()
+	""autocmd bufwritepost .vimrc source $MYVIMRC
 
-    " Start NerdTree automatically when vim starts
-    " autocmd vimenter * NERDTree
-    autocmd vimenter * if !argc() | :e $MYVIMRC | set syntax=on | endif
-    autocmd vimenter * if !argc() | NERDTree | endif
+	" Start NerdTree automatically when vim starts
+	" autocmd vimenter * NERDTree
+	autocmd vimenter * if !argc() | :e $MYVIMRC | set syntax=on | endif
+	autocmd vimenter * if !argc() | NERDTree | endif
 endif
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
