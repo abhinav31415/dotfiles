@@ -159,9 +159,9 @@ noremap <Leader>sc :s/^/#/
 noremap <Leader>su :s/^#//
 
 " Indentation in normal and visual mode
-nnoremap <Tab>	>>
+nnoremap <Tab>		>>
 nnoremap <S-Tab>	<<
-vnoremap <Tab>	>gv
+vnoremap <Tab>		>gv
 vnoremap <S-Tab>	<gv
 
 " buffer toggle 
@@ -182,11 +182,11 @@ inoremap <Left>  <NOP>
 inoremap <Right> <NOP>
 
 " Bubble single lines
-nnoremap <C-Up> [e
-nnoremap <C-Down> ]e
+nnoremap <C-Up>		[e
+nnoremap <C-Down>	]e
 " Bubble multiple lines
-vnoremap <C-Up> [egv
-vnoremap <C-Down> ]egv
+vnoremap <C-Up>		[egv
+vnoremap <C-Down>	]egv
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
