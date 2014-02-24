@@ -114,3 +114,7 @@
 	path = home/ubuntu/vim/bundle/QFEnter
 	url = git@github.com:yssl/QFEnter.git
 	ignore = dirty
+[submodule "home/ubuntu/vim/bundle/tagbar"]
+	path = home/ubuntu/vim/bundle/tagbar
+	url = git@github.com:majutsushi/tagbar.git
+	ignore = dirty

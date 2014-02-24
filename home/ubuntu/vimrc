@@ -157,6 +157,8 @@ noremap <Leader>bu :s/^\/\///
 noremap <Leader>sc :s/^/#/
 " Map \su to uncomment multiple lines in shell-style
 noremap <Leader>su :s/^#//
+" Map \t to toggle tagbar on the right
+noremap <Leader>t :TagbarToggle<CR>
 
 " Indentation in normal and visual mode
 nnoremap <Tab>		>>
