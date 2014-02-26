@@ -118,3 +118,7 @@
 	path = home/ubuntu/vim/bundle/tagbar
 	url = git@github.com:majutsushi/tagbar.git
 	ignore = dirty
+[submodule "home/ubuntu/vim/bundle/easymotion"]
+	path = home/ubuntu/vim/bundle/easymotion
+	url = git@github.com:Lokaltog/vim-easymotion.git
+	ignore = dirty
