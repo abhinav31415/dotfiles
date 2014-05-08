@@ -119,3 +119,6 @@ source ~/.fzf.bash
 if [ -f ~/.git-completion.bash ]; then
 	. ~/.git-completion.bash
 fi
+
+# to enable python tab autocomplete
+echo "export PYTHONSTARTUP=~/.pythonrc" >> ~/.profile
