@@ -171,6 +171,7 @@ if has ("autocmd")
     " Fugitive statusline changes
     autocmd BufReadPost fugitive://* set bufhidden=delete
 
+	" Reload syntax highlighting jazz when switching tabs
 	autocmd TabEnter *.h,*.c,*.cpp,*.inc :colo monokai | :syntax sync fromstart | :so ~/.vim/after/ftplugin/cpp.vim
 	autocmd TabEnter *.py :colo monokai | :syntax sync fromstart | :so ~/.vim/after/ftplugin/python.vim
 
