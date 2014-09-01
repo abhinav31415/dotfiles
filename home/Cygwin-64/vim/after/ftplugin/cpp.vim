@@ -10,7 +10,7 @@ hi cppType ctermfg=206 ctermbg=NONE cterm=italic guifg=#00ced1 guibg=NONE gui=it
 " Additions for more C++ syntax highlighting.
 " Tobias Anderberg, 2013.
 
-syn keyword cppCustomStatement       nullptr
+syn keyword cppCustomStatement       nullptr NULL
 
 syn keyword cppCustomStlContainers   array vector deque forward_list list
 syn keyword cppCustomStlContainers   set map multiset multimap
