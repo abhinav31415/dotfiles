@@ -10,16 +10,12 @@ execute pathogen#helptags()
 filetype plugin indent on     " required!
 syntax on
 
-syntax enable
-set background=dark
-colorscheme solarized
-
 " Force syntastic to use pyflakes for python, since it's supposed to be faster
 let g:syntastic_python_checkers=['pyflakes']
 
 " Regular stuff
 " set term=dtterm 
-set et                          " expand tab
+set noet                        " expand tab
 set ts=4                        " tab stop
 set sw=4                        " sift width
 set sts=4                       " soft tab stop
@@ -103,6 +99,11 @@ nnoremap <C-Down> :silent! let &guifont = substitute(
  \ '\=eval(submatch(0)-1)',
  \ '')<CR>
 
+" Get Syntax group of word under cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Don't need this with syntastic
 " hi Function guifg=red
 " hi Identifier guifg=red
@@ -161,8 +162,6 @@ nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 
 " autocmd stuff
 if has ("autocmd")
-    filetype on " in case I delete that before this
-
     " Make files are finnicky about tabs and spaces
     autocmd FileType make noexpandtab
 
@@ -171,6 +170,9 @@ if has ("autocmd")
 
     " Fugitive statusline changes
     autocmd BufReadPost fugitive://* set bufhidden=delete
+
+	autocmd TabEnter *.h,*.c,*.cpp,*.inc :colo monokai | :syntax sync fromstart | :so ~/.vim/after/ftplugin/cpp.vim
+	autocmd TabEnter *.py :colo monokai | :syntax sync fromstart | :so ~/.vim/after/ftplugin/python.vim
 
     " allow extra highlighting for CPP style
     " don't know if I still need this with syntastic
@@ -190,3 +192,10 @@ nnoremap <Leader>v :tabedit $MYVIMRC<CR>
 
 " Fugitive commands
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+syntax enable
+set background=dark
+"colorscheme solarized
+colorscheme monokai
+"colorscheme molokai
+"colorscheme jellybeans
