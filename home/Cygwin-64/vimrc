@@ -175,6 +175,9 @@ if has ("autocmd")
 	autocmd TabEnter *.h,*.c,*.cpp,*.inc :colo monokai | :syntax sync fromstart | :so ~/.vim/after/ftplugin/cpp.vim
 	autocmd TabEnter *.py :colo monokai | :syntax sync fromstart | :so ~/.vim/after/ftplugin/python.vim
 
+	" Autohighlight word under the cursor
+	autocmd CursorMoved * silent! exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+
     " allow extra highlighting for CPP style
     " don't know if I still need this with syntastic
     " autocmd Syntax cpp call EnhanceCppSyntax()
