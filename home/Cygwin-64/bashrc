@@ -200,3 +200,11 @@
 # start X-win
 /usr/bin/startxwin
 alias git-root='cd "$(git rev-parse --show-toplevel)"'
+
+# SSH Agent
+SSHAGENT=/usr/bin/ssh-agent
+SSHAGENTARGS="-s"
+if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+    eval `$SSHAGENT $SSHAGENTARGS`
+    trap "kill $SSH_AGENT_PID" 0
+fi
