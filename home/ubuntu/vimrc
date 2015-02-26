@@ -79,6 +79,8 @@ set wildignore=*.sw?,*.o,*.obj,*.tsk,*.pyc,*.*~
 
 set listchars=tab:▸\ ,eol:¬
 
+set tags=./tags;/
+
 " Function defintions
 " Function to strip trailing spaces
 function! <SID>StripTrailingWhitespaces()
